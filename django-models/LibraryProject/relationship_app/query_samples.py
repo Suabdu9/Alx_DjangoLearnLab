@@ -26,7 +26,7 @@ def books_in_library(library_name):
 def librarian_for_library(library_name):
     try:
         library = Library.objects.get(name=library_name)  # Get the Library by name
-        librarian = library.librarian  # Access the associated Librarian using the one-to-one relationship
+        librarian = Librarian.objects.get(library=library)  # Access the associated Librarian using the one-to-one relationship
         print(f"The librarian for {library_name} is: {librarian.name}")
     except Library.DoesNotExist:
         print(f"Library {library_name} not found.")
