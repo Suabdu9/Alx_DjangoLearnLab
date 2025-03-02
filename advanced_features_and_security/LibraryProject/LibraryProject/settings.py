@@ -35,6 +35,7 @@ SECURE_HSTS_PRELOAD = True
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'  # Or 'SAMEORIGIN' if you want to allow embedding in your own site
 SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 CSRF_COOKIE_SECURE = True  # CSRF cookies are only sent over HTTPS
 SESSION_COOKIE_SECURE = True  # Session cookies are only sent over HTTPS
