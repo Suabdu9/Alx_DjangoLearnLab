@@ -36,21 +36,6 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'relationship_app/register.html', {'form': form})
 
-# User Login View (Using Django's built-in view)
-def login_view(request):
-    if request.method == 'POST':
-        form = LoginForm(request=request, data=request.POST) # type: ignore
-        if form.is_valid():
-            return redirect('home')  # Redirect to the home page after successful login
-    else:
-        form = LoginForm() # type: ignore
-    return render(request, 'relationship_app/login.html', {'form': form})
-
-# User Logout View
-def logout_view(request):
-    logout(request)
-    return render(request, 'relationship_app/logout.html')
-
 # Home view for authenticated users
 @login_required
 def home(request):
