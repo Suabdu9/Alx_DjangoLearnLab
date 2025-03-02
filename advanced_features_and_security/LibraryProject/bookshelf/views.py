@@ -2,7 +2,7 @@
 from django import forms
 from .models import Book  # Adjust according to your model
 
-# ExampleForm (This could be any form you're creating)
+
 class ExampleForm(forms.Form):  # or forms.ModelForm if you're using a model form
     title = forms.CharField(max_length=100)
     description = forms.CharField(widget=forms.Textarea)
