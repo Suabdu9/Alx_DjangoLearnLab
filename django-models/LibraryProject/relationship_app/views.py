@@ -1,5 +1,9 @@
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
+from django.contrib.auth import login, logout
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Book
 from .models import Library
 
@@ -20,3 +24,34 @@ class LibraryDetailView(DetailView): # type: ignore
         library = self.get_object()  # Get the specific library object
         context['books'] = library.books.all()  # Add all books associated with the library to the context
         return context
+    
+# User Registration View
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()  # Create the user
+            return redirect('login')  # Redirect to login page after registration
+    else:
+        form = UserCreationForm()
+    return render(request, 'relationship_app/register.html', {'form': form})
+
+# User Login View (Using Django's built-in view)
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request=request, data=request.POST) # type: ignore
+        if form.is_valid():
+            return redirect('home')  # Redirect to the home page after successful login
+    else:
+        form = LoginForm() # type: ignore
+    return render(request, 'relationship_app/login.html', {'form': form})
+
+# User Logout View
+def logout_view(request):
+    logout(request)
+    return render(request, 'relationship_app/logout.html')
+
+# Home view for authenticated users
+@login_required
+def home(request):
+    return render(request, 'relationship_app/home.html')
