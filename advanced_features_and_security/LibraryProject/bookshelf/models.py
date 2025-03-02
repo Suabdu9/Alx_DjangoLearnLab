@@ -36,7 +36,7 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     # Additional custom fields
     date_of_birth = models.DateField(null=True, blank=True)
-    profile_photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
+    # profile_photo = models.ImageField(upload_to='profile_photos/', null=True, blank=True)
 
     objects = CustomUserManager()  # Use the custom manager
 
@@ -44,13 +44,21 @@ class CustomUser(AbstractUser):
         return self.username
 
 class Post(models.Model):
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     content = models.TextField()
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    # Custom permissions
+    class Meta:
+        permissions = [
+            ("can_create", "Can create a post"),
+            ("can_view", "Can view the post"),
+            ("can_edit", "Can edit the post"),
+            ("can_delete", "Can delete the post"),
+        ]
 
     def __str__(self):
         return self.title
-
     
 class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
