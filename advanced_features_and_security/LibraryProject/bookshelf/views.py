@@ -1,16 +1,11 @@
-# bookshelf/forms.py
-from django import forms
-from .models import Book  # Adjust according to your model
+from django.shortcuts import render
+from django.contrib.auth.decorators import permission_required
+from .models import Book  # Assuming you have a Book model
+from django.http import HttpResponseForbidden
+from .forms import ExampleForm
 
-
-class ExampleForm(forms.Form):  # or forms.ModelForm if you're using a model form
-    title = forms.CharField(max_length=100)
-    description = forms.CharField(widget=forms.Textarea)
-    published_date = forms.DateField()
-
-    # Optionally, add validation methods for the fields
-    def clean_title(self):
-        title = self.cleaned_data['title']
-        if len(title) < 3:
-            raise forms.ValidationError("Title must be at least 3 characters long.")
-        return title
+# Example view to list books (only accessible by users with 'can_view' permission)
+@permission_required('bookshelf.can_view', raise_exception=True)
+def book_list(request):
+    books = Book.objects.all()  # Get all books
+    return render(request, 'bookshelf/book_list.html', {'books': books})
