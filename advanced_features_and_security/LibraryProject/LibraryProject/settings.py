@@ -25,9 +25,6 @@ SECRET_KEY = 'django-insecure-pg5nh*m1ub2lyli@@)(!2&2#6e#a+$0y4$-0@q&1&#enqik%6l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
-
-# Security headers for browser protections
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'  # Or 'SAMEORIGIN' if you want to allow embedding in your own site
 SECURE_CONTENT_TYPE_NOSNIFF = True
@@ -39,6 +36,7 @@ SESSION_COOKIE_SECURE = True  # Session cookies are only sent over HTTPS
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_HSTS_SECONDS = 3600  # HTTP Strict Transport Security
 
+ALLOWED_HOSTS = []
 
 
 # Application definition
