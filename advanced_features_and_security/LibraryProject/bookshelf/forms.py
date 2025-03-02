@@ -3,6 +3,17 @@
 from django import forms
 from .models import Book
 
+class ExampleForm(forms.Form):
+    title = forms.CharField(max_length=100)
+    description = forms.CharField(widget=forms.Textarea)
+    published_date = forms.DateField()
+
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if len(title) < 3:
+            raise forms.ValidationError("Title must be at least 3 characters long.")
+        return title
+
 class BookForm(forms.ModelForm):
     class Meta:
         model = Book
