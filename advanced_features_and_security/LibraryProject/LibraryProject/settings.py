@@ -25,6 +25,13 @@ SECRET_KEY = 'django-insecure-pg5nh*m1ub2lyli@@)(!2&2#6e#a+$0y4$-0@q&1&#enqik%6l
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+SECURE_SSL_REDIRECT = True
+
+# HTTP Strict Transport Security (HSTS) settings
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains
+SECURE_HSTS_PRELOAD = True 
+
 SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = 'DENY'  # Or 'SAMEORIGIN' if you want to allow embedding in your own site
 SECURE_CONTENT_TYPE_NOSNIFF = True
